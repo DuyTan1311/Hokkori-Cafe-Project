@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
+using System;
 
 public class Interactable : MonoBehaviour
 {
+    public event Action OnInteracted;
     public bool canInteract = true;
 
     public bool IsInteractable()
@@ -13,11 +16,7 @@ public class Interactable : MonoBehaviour
     {
         if (IsInteractable())
         {
-            Debug.Log("Interacted with " +  gameObject.name);
-        }
-        else
-        {
-            Debug.Log("Can't interact with " + gameObject.name);
+            OnInteracted?.Invoke();
         }
     }
 }
