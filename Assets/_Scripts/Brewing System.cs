@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
 public class BrewingSystem : MonoBehaviour
 {
+    private Coroutine brewingRoutine;
+    private bool isBrewing;
     private void OnEnable()
     {
         // subscribe only if event system has ready
@@ -21,7 +24,15 @@ public class BrewingSystem : MonoBehaviour
 
     void HandleBrewing(DrinkData drinkData)
     {
+        if (isBrewing)
+        {
+            Debug.Log("Already brewing!");
+            return;
+        }
+
         Debug.Log("Brewing started: " + drinkData.drinkName);
+
+        brewingRoutine = StartCoroutine(BrewRoutine(drinkData));
     }
 
     void TrySubscribe()
@@ -36,5 +47,22 @@ public class BrewingSystem : MonoBehaviour
         }
         GameEventSystem.instance.OnBrewingRequested -= HandleBrewing; // prevent double subscribes
         GameEventSystem.instance.OnBrewingRequested += HandleBrewing;
+    }
+    // set cooldown for brewing
+    IEnumerator BrewRoutine(DrinkData drinkData)
+    {
+        isBrewing = true;
+
+        float remainingTime = drinkData.brewTime;
+
+        while (remainingTime > 0)
+        {
+            remainingTime -= Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("Brewing completed: " + drinkData.drinkName);
+
+        isBrewing = false;
+        brewingRoutine = null;
     }
 }
