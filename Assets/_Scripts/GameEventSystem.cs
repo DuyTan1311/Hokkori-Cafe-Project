@@ -8,6 +8,7 @@ public class GameEventSystem : MonoBehaviour
     public static event Action OnEventSystemReady;
 
     public event Action<DrinkData> OnBrewingRequested;
+    public event Action<NPCController, NPCOrderData> OnNPCOrderCreated;
 
     public bool isReady { get; private set; }
 
@@ -27,5 +28,10 @@ public class GameEventSystem : MonoBehaviour
     public void RaiseBrewingRequested(DrinkData data)
     {
         OnBrewingRequested?.Invoke(data);
+    }
+
+    public void RaiseNPCOrderCreated(NPCController npc, NPCOrderData data)
+    {
+        OnNPCOrderCreated?.Invoke(npc, data);
     }
 }

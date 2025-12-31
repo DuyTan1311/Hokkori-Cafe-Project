@@ -8,7 +8,7 @@ public static class OrderGenerator
     {
         database = db;
     }
-    public static NPCOrderData GenerateOrder()
+    public static NPCOrderData Generate()
     {
         DrinkData drink = database.drinks[Random.Range(0, database.drinks.Count)];
         return new NPCOrderData

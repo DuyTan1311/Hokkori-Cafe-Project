@@ -4,7 +4,9 @@ public class NPCStateMachine
 {
     public NPCState currentState { get; private set; }
 
-    public event System.Action<NPCState> OnStateChanged;
+    public NPCOrderData currentOrder { get; private set; }
+
+    public event System.Action<NPCState, NPCOrderData> OnStateChanged;
 
     public void ChangeState(NPCState newState)
     {
@@ -13,6 +15,6 @@ public class NPCStateMachine
             return;
         }
         currentState = newState;
-        OnStateChanged?.Invoke(currentState);
+        OnStateChanged?.Invoke(currentState, currentOrder);
     }
 }
