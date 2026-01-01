@@ -3,6 +3,7 @@ using UnityEngine;
 public class BrewingMachine : MonoBehaviour
 {
     [SerializeField] DrinkData drinkData;
+    [SerializeField] BrewingRequestedEvent OnBrewingRequested;
 
     Interactable interactable;
 
@@ -23,7 +24,7 @@ public class BrewingMachine : MonoBehaviour
 
     void RequestBrew()
     {
-        GameEventSystem.instance.RaiseBrewingRequested(drinkData);
+        OnBrewingRequested.Raise(drinkData);
         Debug.Log("Coffee Machine brew requested: " + drinkData.drinkName);
     }
 }

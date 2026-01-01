@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6a89e06ec2ac44d9072d6540a0e60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrewingSystem
+  OnBrewingRequested: {fileID: 11400000, guid: 75acc2d723d85d14082ec55f8703e85a, type: 2}
 --- !u!1 &200263611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,7 +1083,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1814655624}
   - {fileID: 72566432}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1210,7 +1210,7 @@ NavMeshAgent:
   m_Speed: 6
   m_Acceleration: 999999
   avoidancePriority: 50
-  m_AngularSpeed: 1000
+  m_AngularSpeed: 10000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
@@ -1219,50 +1219,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!1 &1814655622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1814655624}
-  - component: {fileID: 1814655623}
-  m_Layer: 0
-  m_Name: Event System
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1814655623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814655622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56e84da1986f0041bfbb77ada9a2d03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameEventSystem
---- !u!4 &1814655624
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814655622}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.98832, y: -2.40434, z: 0.29785}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 898236409}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1888751074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,6 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbcfd1800e4adb4c984c8d6843705ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
+  OnNPCOrderCreated: {fileID: 11400000, guid: 94ec61c673152f641a8078e653c3c503, type: 2}
   currentOrder:
     requestedDrink: {fileID: 0}
     orderStyle: 0
@@ -1587,6 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrewingMachine
   drinkData: {fileID: 11400000, guid: fc288ec4781713e44a72ed1d06baf3e1, type: 2}
+  OnBrewingRequested: {fileID: 11400000, guid: 75acc2d723d85d14082ec55f8703e85a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

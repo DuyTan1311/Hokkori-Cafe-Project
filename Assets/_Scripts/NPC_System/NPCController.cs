@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
+    [SerializeField] NPCCreatedOrderEvent OnNPCOrderCreated;
     public NPCOrderData currentOrder;
     public NPCStateMachine stateMachine;
 
@@ -44,7 +45,7 @@ public class NPCController : MonoBehaviour
     void GenerateOrder()
     {
         currentOrder = OrderGenerator.Generate();
-        GameEventSystem.instance.RaiseNPCOrderCreated(this, currentOrder);
+        OnNPCOrderCreated.Raise(this, currentOrder);
     }
 
     public void AcceptOrder()
