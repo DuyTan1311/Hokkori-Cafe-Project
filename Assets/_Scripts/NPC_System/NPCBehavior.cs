@@ -4,23 +4,27 @@ using System;
 
 public class NPCBehavior : MonoBehaviour
 {
-    Coroutine waitCoroutine;
+    NPCPatienceController patienceController;
 
-    public event Action OnNPCLeaving;
-
-    public void HandleStateChanged(NPCState state, NPCOrderData orderData)
+    // let NPC Controller initialize to avoid timing error
+    public void InitializedPatienceController(NPCPatienceController patience)
     {
-        StopAllCoroutines();
+        patienceController = patience;
+    }
+
+    public void HandleStateChanged(NPCState state)
+    {
+        patienceController.StopWaiting();
 
         switch (state)
         {
             case NPCState.WaitingForOrderAccept:
-                Debug.Log("Waiting for order: " + orderData.requestedDrink);
+                Debug.Log("Waiting for order accept");
                 break;
 
             case NPCState.WaitingForDrink:
-                waitCoroutine = StartCoroutine(WaitForDrink(orderData));
-                OnNPCLeaving?.Invoke();
+                Debug.Log("NPC is waiting for drink");
+                patienceController.StartWaiting();
                 break;
 
             case NPCState.GotCorrectDrink:
@@ -37,14 +41,5 @@ public class NPCBehavior : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForDrink(NPCOrderData orderData)
-    {
-        float timer = 0;
-        while (timer < orderData.waitTime)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        
-    }
+    
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public static class OrderGenerator
 {
+    // use to generate order
     static DrinkDatabase database;
 
     public static void InitializeDrinkDatabase(DrinkDatabase db)
@@ -14,7 +15,6 @@ public static class OrderGenerator
         return new NPCOrderData
         {
             requestedDrink = drink,
-            waitTime = 10f,
             orderStyle = Random.value > 0.5f ? OrderStyle.Direct : OrderStyle.Indirect
         };
 

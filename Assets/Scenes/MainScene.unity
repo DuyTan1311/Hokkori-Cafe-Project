@@ -1061,6 +1061,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 898236409}
+  - component: {fileID: 898236410}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1085,6 +1086,19 @@ Transform:
   - {fileID: 72566432}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &898236410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898236408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2266a10b24c80e14bb7a4be5b6da8e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  drinkDatabase: {fileID: 11400000, guid: 039b0f9be43de9443bcd11342be52b0b, type: 2}
 --- !u!1 &1107955223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,6 +1278,7 @@ GameObject:
   - component: {fileID: 1888751075}
   - component: {fileID: 1888751080}
   - component: {fileID: 1888751082}
+  - component: {fileID: 1888751083}
   - component: {fileID: 1888751081}
   m_Layer: 0
   m_Name: NPC
@@ -1303,11 +1318,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.92
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1888751077
 MeshRenderer:
@@ -1395,7 +1410,6 @@ MonoBehaviour:
   currentOrder:
     requestedDrink: {fileID: 0}
     orderStyle: 0
-    waitTime: 0
 --- !u!114 &1888751081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,6 +1435,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d58ecd00f5d224986da6489ee96203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehavior
+--- !u!114 &1888751083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888751074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3c617e90595dd478c665fd6847d73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCPatienceController
+  profile: {fileID: 11400000, guid: 77eeca18bb419204eb15a819b035ef88, type: 2}
 --- !u!1 &2082278745
 GameObject:
   m_ObjectHideFlags: 0
