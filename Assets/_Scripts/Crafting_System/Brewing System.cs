@@ -23,7 +23,7 @@ public class BrewingSystem : MonoBehaviour
             return;
         }
 
-        Debug.Log("Brewing started: " + drinkData.drinkName);
+        Debug.Log("Brewing started: " + drinkData.itemName);
 
         brewingRoutine = StartCoroutine(BrewRoutine(drinkData));
     }
@@ -40,7 +40,7 @@ public class BrewingSystem : MonoBehaviour
             remainingTime -= Time.deltaTime;
             yield return null;
         }
-        Debug.Log("Brewing completed: " + drinkData.drinkName);
+        Debug.Log("Brewing completed: " + drinkData.itemName);
 
         isBrewing = false;
         brewingRoutine = null;

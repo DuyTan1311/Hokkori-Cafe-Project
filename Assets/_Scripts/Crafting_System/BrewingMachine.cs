@@ -25,6 +25,6 @@ public class BrewingMachine : MonoBehaviour
     void RequestBrew()
     {
         OnBrewingRequested.Raise(drinkData);
-        Debug.Log("Coffee Machine brew requested: " + drinkData.drinkName);
+        Debug.Log("Coffee Machine brew requested: " + drinkData.itemName);
     }
 }

@@ -1,9 +1,11 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Drink", menuName = "Drink Data")]
-public class DrinkData : ScriptableObject
+public class DrinkData : ItemData
 {
-    public string drinkName;
     public float brewTime;
     public int price;
+
+    public bool isHot;
+    public bool isSweet;
 }

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3613385625662814e93f03b15578fe3f, type: 3}
   m_Name: Coffee
   m_EditorClassIdentifier: Assembly-CSharp::DrinkData
-  drinkName: Coffee
+  itemName: Coffee
+  itemID: 
+  icon: {fileID: 0}
+  canBeHeld: 1
+  canBeStored: 1
   brewTime: 3
   price: 100
+  isHot: 0
+  isSweet: 0
