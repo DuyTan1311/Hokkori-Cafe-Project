@@ -4,6 +4,8 @@ using System.Collections;
 public class BrewingSystem : MonoBehaviour
 {
     [SerializeField] BrewingRequestedEvent OnBrewingRequested;
+    [SerializeField] BrewingCompletedEvent OnBrewingCompleted;
+
     private Coroutine brewingRoutine;
     private bool isBrewing;
     private void OnEnable()
@@ -15,7 +17,7 @@ public class BrewingSystem : MonoBehaviour
         OnBrewingRequested.Raised -= HandleBrewing;
     }
 
-    void HandleBrewing(DrinkData drinkData)
+    void HandleBrewing(BrewingMachine machine, DrinkData drinkData)
     {
         if (isBrewing)
         {
@@ -25,11 +27,11 @@ public class BrewingSystem : MonoBehaviour
 
         Debug.Log("Brewing started: " + drinkData.itemName);
 
-        brewingRoutine = StartCoroutine(BrewRoutine(drinkData));
+        brewingRoutine = StartCoroutine(BrewRoutine(machine, drinkData));
     }
 
    
-    IEnumerator BrewRoutine(DrinkData drinkData)
+    IEnumerator BrewRoutine(BrewingMachine machine, DrinkData drinkData)
     {
         isBrewing = true;
 
@@ -41,6 +43,7 @@ public class BrewingSystem : MonoBehaviour
             yield return null;
         }
         Debug.Log("Brewing completed: " + drinkData.itemName);
+        OnBrewingCompleted.Raise(machine, drinkData);
 
         isBrewing = false;
         brewingRoutine = null;

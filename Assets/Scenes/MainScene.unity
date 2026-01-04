@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrewingSystem
   OnBrewingRequested: {fileID: 11400000, guid: 75acc2d723d85d14082ec55f8703e85a, type: 2}
+  OnBrewingCompleted: {fileID: 11400000, guid: 0132a7d064ca4dd4ead124ca6e8ddab6, type: 2}
 --- !u!1 &200263611
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +972,7 @@ GameObject:
   - component: {fileID: 883224288}
   - component: {fileID: 883224290}
   - component: {fileID: 883224291}
+  - component: {fileID: 883224292}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Untagged
@@ -1053,6 +1055,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8504223, y: 1.3009433, z: 1.6667576}
   m_Center: {x: -0.014262201, y: 0.15047158, z: 0.00094771397}
+--- !u!114 &883224292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883224286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2655dbcb253a9c645907b653770f0ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
 --- !u!1 &898236408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,6 +1559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BrewingMachine
   drinkData: {fileID: 11400000, guid: fc288ec4781713e44a72ed1d06baf3e1, type: 2}
   OnBrewingRequested: {fileID: 11400000, guid: 75acc2d723d85d14082ec55f8703e85a, type: 2}
+  OnBrewingCompleted: {fileID: 11400000, guid: 0132a7d064ca4dd4ead124ca6e8ddab6, type: 2}
+  inventory: {fileID: 883224292}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

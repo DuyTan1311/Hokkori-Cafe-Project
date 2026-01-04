@@ -13,7 +13,7 @@ public class InventorySlot
         slotType = SlotType;
     }
 
-    public bool Set(ItemData itemData)
+    public bool TrySet(ItemData itemData)
     {
         if (!isEmpty || itemData == null)
         {

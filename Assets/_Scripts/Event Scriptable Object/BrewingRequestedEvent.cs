@@ -3,10 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Events/BrewingRequested")]
 public class BrewingRequestedEvent : ScriptableObject
 {
-    public event Action<DrinkData> Raised;
+    public event Action<BrewingMachine,DrinkData> Raised;
 
-    public void Raise(DrinkData data)
+    public void Raise(BrewingMachine machine,DrinkData data)
     {
-        Raised?.Invoke(data);
+        Raised?.Invoke(machine, data);
     }
 }
