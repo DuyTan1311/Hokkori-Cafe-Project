@@ -94,6 +94,45 @@ public class Inventory
         return toSlot.TrySet(item);
     }
 
+    // swap item between hand and bag
+    public bool TrySwap(InventorySlotType from, InventorySlotType to)
+    {
+        InventorySlot fromSlot = GetSlot(from);
+        InventorySlot toSlot = GetSlot(to);
+
+        // if one of the slots is null (doesn't exist in inventory), return false
+        if (fromSlot == null || toSlot == null)
+        {
+            return false;
+        }
+        // if both slots is empty, return false
+        if(fromSlot.isEmpty && toSlot.isEmpty)
+        {
+            return false;
+        }
+        else
+        {
+            if(!fromSlot.isEmpty && toSlot.isEmpty)
+            {
+                ItemData item = fromSlot.Clear();
+                return toSlot.TrySet(item);
+            }
+            else if(fromSlot.isEmpty && !toSlot.isEmpty)
+            {
+                ItemData item =toSlot.Clear();
+                return fromSlot.TrySet(item);
+            }
+            else
+            {
+                ItemData itemFrom=fromSlot.Clear();
+                ItemData itemTo=toSlot.Clear();
+                fromSlot.TrySet(itemTo);
+                toSlot.TrySet(itemFrom);
+                return true;
+            }
+        }
+    }
+
     // remove item from slot
     public ItemData RemoveFrom(InventorySlotType type)
     {

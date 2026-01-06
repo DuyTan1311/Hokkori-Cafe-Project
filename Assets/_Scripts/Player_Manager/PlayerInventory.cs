@@ -15,11 +15,11 @@ public class PlayerInventory : MonoBehaviour
 
     public bool ReceiveItem(ItemData item)
     {
-        if (inventory.TryAdd(item))
-        {
-            Debug.Log("Added item " + item.itemName + " to inventory.");
-            return true;
-        }
-        return false;
+        return inventory.TryAdd(item);
+    }
+
+    public bool SwapItem()
+    {
+        return inventory.TrySwap(InventorySlotType.Hand, InventorySlotType.Bag);
     }
 }
