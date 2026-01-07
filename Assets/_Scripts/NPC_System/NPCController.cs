@@ -9,6 +9,7 @@ public class NPCController : MonoBehaviour
     private NPCBehavior behavior;
     private Interactable interactable;
     private NPCPatienceController patienceController;
+    private NPCOrderHandler orderHandler;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class NPCController : MonoBehaviour
         behavior = GetComponent<NPCBehavior>();
         interactable = GetComponent<Interactable>();
         patienceController = GetComponent<NPCPatienceController>();
+        orderHandler = GetComponent<NPCOrderHandler>();
 
         // initialize patience controller
         behavior.InitializedPatienceController(patienceController);
@@ -44,7 +46,7 @@ public class NPCController : MonoBehaviour
 
     void GenerateOrder()
     {
-        currentOrder = OrderGenerator.Generate();
+        currentOrder = orderHandler.CreateOrder();
         OnNPCOrderCreated.Raise(this, currentOrder);
     }
 

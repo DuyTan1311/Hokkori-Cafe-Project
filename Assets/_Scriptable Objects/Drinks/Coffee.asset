@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Coffee
   m_EditorClassIdentifier: Assembly-CSharp::DrinkData
   itemName: Coffee
-  itemID: 
+  itemID: drink_coffee
   icon: {fileID: 0}
   canBeHeld: 1
   canBeStored: 1

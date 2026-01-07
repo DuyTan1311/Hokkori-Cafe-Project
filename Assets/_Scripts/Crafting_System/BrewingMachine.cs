@@ -8,42 +8,31 @@ public class BrewingMachine : MonoBehaviour
     [SerializeField] PlayerInventory inventory;
 
     Interactable interactable;
+    BrewingStateMachine stateMachine;
 
-    private bool readyToCollect = false;
-    private bool isBrewing = false;
+    // let brewingSystem change state but keep stateMachine private
+    public BrewingState CurrentState => stateMachine.currentState;
 
     private void Awake()
     {
         interactable = GetComponent<Interactable>();
+        stateMachine = new BrewingStateMachine();
     }
 
     private void OnEnable()
     {
         interactable.OnInteracted += HandleInteract;
-        OnBrewingCompleted.Raised += BrewReady;
     }
 
     private void OnDisable()
     {
         interactable.OnInteracted -= HandleInteract;
-        OnBrewingCompleted.Raised -= BrewReady;
     }
 
     void RequestBrew()
     {
         OnBrewingRequested.Raise(this, drinkData);
-        isBrewing = true;
         Debug.Log("Coffee Machine brew requested: " + drinkData.itemName);
-    }
-
-    void BrewReady(BrewingMachine machine, DrinkData completedDrink)
-    {
-        
-        if(machine == this)
-        {
-            readyToCollect = true;
-            isBrewing = false;
-        }
     }
 
     void CollectBrew()
@@ -51,18 +40,18 @@ public class BrewingMachine : MonoBehaviour
 
         if (inventory.ReceiveItem(drinkData))
         {
-            readyToCollect = false;
+            stateMachine.ChangeState(BrewingState.Idle);
         }
         
     }
 
     void HandleInteract()
     {
-        if (!readyToCollect && !isBrewing)
+        if (stateMachine.currentState == BrewingState.Idle)
         {
             RequestBrew();
         }
-        else if (readyToCollect && !isBrewing)
+        else if (stateMachine.currentState == BrewingState.Completed)
         {
             CollectBrew();
         }
@@ -70,5 +59,10 @@ public class BrewingMachine : MonoBehaviour
         {
             // brewing in progress, do nothing
         }
+    }
+
+    public void SetState(BrewingState newState)
+    {
+        stateMachine.ChangeState(newState);
     }
 }

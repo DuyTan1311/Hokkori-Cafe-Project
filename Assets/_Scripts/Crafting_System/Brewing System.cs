@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BrewingSystem : MonoBehaviour
 {
     [SerializeField] BrewingRequestedEvent OnBrewingRequested;
     [SerializeField] BrewingCompletedEvent OnBrewingCompleted;
 
-    private Coroutine brewingRoutine;
-    private bool isBrewing;
+    private Dictionary<BrewingMachine, Coroutine> brewingRoutines = new Dictionary<BrewingMachine, Coroutine>();
+
     private void OnEnable()
     {
         OnBrewingRequested.Raised += HandleBrewing;
@@ -19,22 +20,20 @@ public class BrewingSystem : MonoBehaviour
 
     void HandleBrewing(BrewingMachine machine, DrinkData drinkData)
     {
-        if (isBrewing)
+        if (brewingRoutines.ContainsKey(machine))
         {
-            Debug.Log("Already brewing!");
             return;
-        }
-
+        }   
         Debug.Log("Brewing started: " + drinkData.itemName);
+        machine.SetState(BrewingState.Brewing);
 
-        brewingRoutine = StartCoroutine(BrewRoutine(machine, drinkData));
+        Coroutine routine = StartCoroutine(BrewRoutine(machine, drinkData));
+        brewingRoutines[machine]= routine;
     }
 
    
     IEnumerator BrewRoutine(BrewingMachine machine, DrinkData drinkData)
     {
-        isBrewing = true;
-
         float remainingTime = drinkData.brewTime;
 
         while (remainingTime > 0)
@@ -45,7 +44,7 @@ public class BrewingSystem : MonoBehaviour
         Debug.Log("Brewing completed: " + drinkData.itemName);
         OnBrewingCompleted.Raise(machine, drinkData);
 
-        isBrewing = false;
-        brewingRoutine = null;
+        machine.SetState(BrewingState.Completed);
+        brewingRoutines.Remove(machine);
     }
 }
