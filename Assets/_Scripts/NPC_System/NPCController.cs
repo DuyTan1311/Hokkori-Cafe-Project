@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCController : MonoBehaviour
+public class NPCController : MonoBehaviour, IItemReceiver
 {
     [SerializeField] NPCCreatedOrderEvent OnNPCOrderCreated;
     public NPCOrderData currentOrder;
@@ -47,17 +47,38 @@ public class NPCController : MonoBehaviour
     void GenerateOrder()
     {
         currentOrder = orderHandler.CreateOrder();
+        Debug.Log("NPC order is: " + currentOrder.requestedDrink);
         OnNPCOrderCreated.Raise(this, currentOrder);
     }
 
     public void AcceptOrder()
     {
-        stateMachine.ChangeState(NPCState.WaitingForDrink);
+        if(stateMachine.currentState == NPCState.WaitingForOrderAccept)
+        {
+            stateMachine.ChangeState(NPCState.WaitingForDrink);
+            return;
+        }
     }
 
-    public void ReceiveDrink(DrinkData drink)
+    public bool CanReceiveItem(ItemData item)
     {
-        if(drink == currentOrder.requestedDrink)
+        if(stateMachine.currentState != NPCState.WaitingForDrink)
+        {
+            return false;
+        }
+        return item is DrinkData;
+    }
+
+    public void ReceiveItem(ItemData item)
+    {
+        if (!CanReceiveItem(item))
+        {
+            return;
+        }
+
+        DrinkData drink = (DrinkData)item;
+
+        if(orderHandler.CheckOrder(drink))
         {
             stateMachine.ChangeState(NPCState.GotCorrectDrink);
         }

@@ -143,5 +143,16 @@ public class Inventory
         }
         return slot.Clear();
     }
+
+    // check which item is in a particular spot
+    public ItemData GetItem(InventorySlotType type)
+    {
+        InventorySlot slot = GetSlot(type);
+        if(slot == null || slot.isEmpty)
+        {
+            return null;
+        }
+        return slot.item;
+    }
     #endregion
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Normal NPC
   m_EditorClassIdentifier: Assembly-CSharp::NPCProfile
   NPCName: Default
-  waitTime: 10
+  waitTime: 20

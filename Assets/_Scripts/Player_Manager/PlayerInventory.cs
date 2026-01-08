@@ -23,8 +23,13 @@ public class PlayerInventory : MonoBehaviour
         return inventory.TrySwap(InventorySlotType.Hand, InventorySlotType.Bag);
     }
 
-    public ItemData giveItem()
+    public ItemData GiveItem()
     {
         return inventory.RemoveFrom(InventorySlotType.Hand);
+    }
+
+    public ItemData PeekHand()
+    {
+        return inventory.GetItem(InventorySlotType.Hand);
     }
 }
