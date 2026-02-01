@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class NPCController : MonoBehaviour, IItemReceiver
 {
@@ -43,7 +44,7 @@ public class NPCController : MonoBehaviour, IItemReceiver
         interactable.OnInteracted -= AcceptOrder;
         patienceController.OnPatienceExpired -= Leave;
     }
-
+    #region Order Behavior
     void GenerateOrder()
     {
         currentOrder = orderHandler.CreateOrder();
@@ -87,9 +88,11 @@ public class NPCController : MonoBehaviour, IItemReceiver
             stateMachine.ChangeState(NPCState.GotWrongDrink);
         }
     }
-
+    #endregion
     public void Leave()
     {
         stateMachine.ChangeState(NPCState.Leaving);
     }
+    
+    
 }
