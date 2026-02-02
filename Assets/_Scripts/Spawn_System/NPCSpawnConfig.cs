@@ -15,6 +15,8 @@ public class NPCSpawnConfig : ScriptableObject
     public class NPCSpawnData
     {
         public string poolKey;
+        public NPCController prefab;
+        public int initialPoolSize = 5;
         public int spawnWeight; // Spawn rate
     }
 

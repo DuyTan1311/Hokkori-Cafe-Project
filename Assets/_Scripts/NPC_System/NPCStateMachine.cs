@@ -16,4 +16,13 @@ public class NPCStateMachine
         currentState = newState;
         OnStateChanged?.Invoke(currentState);
     }
+
+    public void Reset()
+    {
+        if(currentState == NPCState.None)
+        {
+            return;
+        }
+        currentState = NPCState.None;
+    }
 }

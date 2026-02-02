@@ -7,14 +7,30 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] private NPCSpawnConfig currentConfig;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform exitPoint;
+    [SerializeField] private int maxActiveNPC = 10;
 
     private float nextSpawnTime;
+    private int currentActiveNPC;
+
+    private void Start()
+    {
+        EnsurePoolsRegistered();
+        CalculateNextSpawnTime();
+    }
 
     private void Update()
     {
         if (Time.time >= nextSpawnTime) {
             SpawnNPC();
             CalculateNextSpawnTime();
+        }
+    }
+
+    private void EnsurePoolsRegistered() // this method is temporary, have to change later for decoupling
+    {
+        foreach(var data in currentConfig.npcPool)
+        {
+            spawnSystem.RegisterPool(data.poolKey,data.prefab,data.initialPoolSize);
         }
     }
 
@@ -26,11 +42,20 @@ public class NPCSpawner : MonoBehaviour
     }
 
     /* this method is used to spawn NPC, when called, it get the pool key from the config asset,
-     and then get a npc instance from the pool by calling spawn system */
+     and then get a npc instance from the pool by calling spawn system, if the number of
+    active NPC is larger than max, stop spawning */
     void SpawnNPC()
     {
+        if(currentActiveNPC >= maxActiveNPC)
+        {
+            return;
+        }
         string key = currentConfig.GetRandomNPCKey();
         var npc = spawnSystem.Spawn<NPCController>(key, spawnPoint.position, spawnPoint.rotation);
+        if(npc != null)
+        {
+            currentActiveNPC++;
+        }
     }
 
     public void DespawnNPC(string key, NPCController npc)

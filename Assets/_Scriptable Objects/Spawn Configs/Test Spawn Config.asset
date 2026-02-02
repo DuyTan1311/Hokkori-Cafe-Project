@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b147fbb88a7f9488bc70fcb5d02400, type: 3}
+  m_Name: Test Spawn Config
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSpawnConfig
+  npcPool:
+  - poolKey: normal_NPC
+    prefab: {fileID: 3882810113595786342, guid: dd267d0130cca7043accca0a9d9429f0, type: 3}
+    initialPoolSize: 5
+    spawnWeight: 100
+  minSpawnInterval: 5
+  maxSpawnInterval: 10

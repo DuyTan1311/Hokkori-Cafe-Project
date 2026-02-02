@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class NPCController : MonoBehaviour, IItemReceiver
+public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
 {
     [SerializeField] NPCCreatedOrderEvent OnNPCOrderCreated;
     public NPCOrderData currentOrder;
@@ -27,23 +27,6 @@ public class NPCController : MonoBehaviour, IItemReceiver
         stateMachine.OnStateChanged += behavior.HandleStateChanged;
     }
 
-    private void OnEnable()
-    {
-        // Generate order and change state
-        GenerateOrder();
-        stateMachine.ChangeState(NPCState.WaitingForOrderAccept);
-
-        // subscribe to event
-        interactable.OnInteracted += AcceptOrder;
-        patienceController.OnPatienceExpired += Leave;
-    }
-
-    private void OnDisable()
-    {
-        // unsubscribe to event
-        interactable.OnInteracted -= AcceptOrder;
-        patienceController.OnPatienceExpired -= Leave;
-    }
     #region Order Behavior
     void GenerateOrder()
     {
@@ -94,5 +77,26 @@ public class NPCController : MonoBehaviour, IItemReceiver
         stateMachine.ChangeState(NPCState.Leaving);
     }
     
-    
+    public void OnSpawn()
+    {
+        stateMachine.Reset(); // reset state first
+        // Generate order and change state
+        GenerateOrder();
+        stateMachine.ChangeState(NPCState.WaitingForOrderAccept);
+
+        // subscribe to event
+        interactable.OnInteracted += AcceptOrder;
+        patienceController.OnPatienceExpired += Leave;
+    }
+
+    public void OnDespawn()
+    {
+        // unsubscribe to event
+        interactable.OnInteracted -= AcceptOrder;
+        patienceController.OnPatienceExpired -= Leave;
+
+        currentOrder = null;
+        patienceController.StopWaiting();
+        stateMachine.Reset();
+    }
 }
