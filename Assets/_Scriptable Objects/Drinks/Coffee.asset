@@ -17,6 +17,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   canBeHeld: 1
   canBeStored: 1
+  poolKey: drink_coffee
   brewTime: 3
   price: 100
   isHot: 0

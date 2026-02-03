@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Tea
   m_EditorClassIdentifier: Assembly-CSharp::DrinkData
   itemName: Tea
-  itemID: 
+  itemID: drink_tea
   icon: {fileID: 0}
   canBeHeld: 1
   canBeStored: 1
+  poolKey: drink_tea
   brewTime: 5
   price: 150
   isHot: 0

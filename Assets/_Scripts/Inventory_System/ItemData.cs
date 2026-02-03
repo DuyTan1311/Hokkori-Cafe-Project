@@ -9,4 +9,7 @@ public abstract class ItemData : ScriptableObject
     [Header("Item Flags")]
     public bool canBeHeld = true;
     public bool canBeStored = true;
+
+    [Header("Visual")]
+    public string poolKey; // key used for spawn system
 }
