@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
   OnNPCOrderCreated: {fileID: 11400000, guid: 94ec61c673152f641a8078e653c3c503, type: 2}
+  OnNPCSpawned: {fileID: 11400000, guid: 44e011dad3be89d49b6b926b98b9dfbc, type: 2}
+  OnNPCLeft: {fileID: 11400000, guid: c0f0b57fa91b4d846b812e5512e2fed4, type: 2}
   currentOrder:
     requestedDrink: {fileID: 0}
     orderStyle: 0

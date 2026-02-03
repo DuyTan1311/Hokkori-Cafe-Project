@@ -4,6 +4,9 @@ using System;
 public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
 {
     [SerializeField] NPCCreatedOrderEvent OnNPCOrderCreated;
+    [SerializeField] NPCSpawnEvent OnNPCSpawned;
+    [SerializeField] NPCLeftEvent OnNPCLeft;
+
     public NPCOrderData currentOrder;
     public NPCStateMachine stateMachine;
 
@@ -11,6 +14,13 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
     private Interactable interactable;
     private NPCPatienceController patienceController;
     private NPCOrderHandler orderHandler;
+
+    public string Poolkey { get; private set; }
+
+    public void Init(string poolKey)
+    {
+        Poolkey = poolKey;
+    }
 
     private void Awake()
     {
@@ -70,11 +80,13 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
         {
             stateMachine.ChangeState(NPCState.GotWrongDrink);
         }
+        
     }
     #endregion
     public void Leave()
     {
         stateMachine.ChangeState(NPCState.Leaving);
+        OnNPCLeft.Raise(this);
     }
     
     public void OnSpawn()
@@ -87,6 +99,7 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
         // subscribe to event
         interactable.OnInteracted += AcceptOrder;
         patienceController.OnPatienceExpired += Leave;
+        OnNPCSpawned.Raise(this);
     }
 
     public void OnDespawn()

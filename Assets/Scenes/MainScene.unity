@@ -1469,6 +1469,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 1773602940}
   exitPoint: {fileID: 0}
   maxActiveNPC: 10
+  onNPCSpawned: {fileID: 11400000, guid: 44e011dad3be89d49b6b926b98b9dfbc, type: 2}
+  onNPCLeft: {fileID: 11400000, guid: c0f0b57fa91b4d846b812e5512e2fed4, type: 2}
 --- !u!1 &2082278745
 GameObject:
   m_ObjectHideFlags: 0

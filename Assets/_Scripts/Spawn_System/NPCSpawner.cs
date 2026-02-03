@@ -8,9 +8,21 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform exitPoint;
     [SerializeField] private int maxActiveNPC = 10;
+    [SerializeField] private NPCSpawnEvent onNPCSpawned;
+    [SerializeField] private NPCLeftEvent onNPCLeft;
 
     private float nextSpawnTime;
     private int currentActiveNPC;
+
+    private void OnEnable()
+    {
+        onNPCLeft.Raised += HandleNPCLeft;
+    }
+
+    private void OnDisable()
+    {
+        onNPCLeft.Raised -= HandleNPCLeft;
+    }
 
     private void Start()
     {
@@ -20,9 +32,13 @@ public class NPCSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time >= nextSpawnTime) {
-            SpawnNPC();
-            CalculateNextSpawnTime();
+        if (Time.time >= nextSpawnTime) 
+        {
+            if(currentActiveNPC < maxActiveNPC)
+            {
+                SpawnNPC();
+                CalculateNextSpawnTime();
+            }
         }
     }
 
@@ -54,6 +70,7 @@ public class NPCSpawner : MonoBehaviour
         var npc = spawnSystem.Spawn<NPCController>(key, spawnPoint.position, spawnPoint.rotation);
         if(npc != null)
         {
+            npc.Init(key);
             currentActiveNPC++;
         }
     }
@@ -68,5 +85,15 @@ public class NPCSpawner : MonoBehaviour
     public void ChangeConfig(NPCSpawnConfig newConfig)
     {
         currentConfig = newConfig;
+    }
+
+    private void HandleNPCLeft(NPCController npc)
+    {
+        if (npc == null)
+        {
+            return;
+        }
+        DespawnNPC(npc.Poolkey, npc);
+        currentActiveNPC = Mathf.Max(0,currentActiveNPC - 1);
     }
 }
