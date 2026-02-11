@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d58ecd00f5d224986da6489ee96203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehavior
+  seatManager: {fileID: 0}
+  exitPoint: {fileID: 0}
+  profile: {fileID: 11400000, guid: 77eeca18bb419204eb15a819b035ef88, type: 2}
 --- !u!114 &8320349185397109628
 MonoBehaviour:
   m_ObjectHideFlags: 0

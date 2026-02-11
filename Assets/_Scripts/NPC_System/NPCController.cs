@@ -38,7 +38,7 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
     }
 
     #region Order Behavior
-    void GenerateOrder()
+    public void GenerateOrder()
     {
         currentOrder = orderHandler.CreateOrder();
         Debug.Log("NPC order is: " + currentOrder.requestedDrink);
@@ -92,13 +92,13 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
     public void OnSpawn()
     {
         stateMachine.Reset(); // reset state first
-        // Generate order and change state
-        GenerateOrder();
-        stateMachine.ChangeState(NPCState.WaitingForOrderAccept);
 
         // subscribe to event
         interactable.OnInteracted += AcceptOrder;
         patienceController.OnPatienceExpired += Leave;
+
+        stateMachine.ChangeState(NPCState.WalkingToSeat);
+
         OnNPCSpawned.Raise(this);
     }
 
@@ -111,5 +111,10 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
         currentOrder = null;
         patienceController.StopWaiting();
         stateMachine.Reset();
+    }
+
+    public void ChangeState(NPCState newState)
+    {
+        stateMachine.ChangeState(newState);
     }
 }
