@@ -86,7 +86,6 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
     public void Leave()
     {
         stateMachine.ChangeState(NPCState.Leaving);
-        OnNPCLeft.Raise(this);
     }
     
     public void OnSpawn()
@@ -97,7 +96,7 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
         interactable.OnInteracted += AcceptOrder;
         patienceController.OnPatienceExpired += Leave;
 
-        stateMachine.ChangeState(NPCState.WalkingToSeat);
+        
 
         OnNPCSpawned.Raise(this);
     }
@@ -116,5 +115,15 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
     public void ChangeState(NPCState newState)
     {
         stateMachine.ChangeState(newState);
+    }
+
+    public void StartBehavior()
+    {
+        stateMachine.ChangeState(NPCState.WalkingToSeat);
+    }
+
+    public void NotifyExit()
+    {
+        OnNPCLeft.Raise(this);
     }
 }

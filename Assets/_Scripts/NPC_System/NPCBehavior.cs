@@ -121,6 +121,11 @@ public class NPCBehavior : MonoBehaviour
 
     void LeaveSeatAndExit()
     {
+        if(exitPoint == null)
+        {
+            Debug.LogError("Exit point not injected");
+            return;
+        }
         if(currentSeat != null)
         {
             currentSeat.Release();
@@ -144,6 +149,6 @@ public class NPCBehavior : MonoBehaviour
             yield return null;
         }
 
-        controller.Leave();
+        controller.NotifyExit();
     }
 }

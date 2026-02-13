@@ -10,6 +10,7 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] private int maxActiveNPC = 10;
     [SerializeField] private NPCSpawnEvent onNPCSpawned;
     [SerializeField] private NPCLeftEvent onNPCLeft;
+    [SerializeField] private SeatManager seatManager;
 
     private float nextSpawnTime;
     private int currentActiveNPC;
@@ -71,6 +72,11 @@ public class NPCSpawner : MonoBehaviour
         if(npc != null)
         {
             npc.Init(key);
+
+            var behavior = npc.GetComponent<NPCBehavior>();
+            behavior.Init(seatManager, exitPoint);
+            npc.StartBehavior();
+
             currentActiveNPC++;
         }
     }

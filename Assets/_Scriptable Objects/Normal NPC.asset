@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCProfile
   NPCName: Default
   waitTime: 20
+  drinkDuration: 5

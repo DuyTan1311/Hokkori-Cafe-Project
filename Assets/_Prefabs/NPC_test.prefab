@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4576866583381409660}
   - component: {fileID: 5439158630905371188}
   - component: {fileID: 6233977144353436339}
+  - component: {fileID: 9043362646691451710}
   m_Layer: 0
   m_Name: NPC_test
   m_TagString: Untagged
@@ -164,8 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d58ecd00f5d224986da6489ee96203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehavior
-  seatManager: {fileID: 0}
-  exitPoint: {fileID: 0}
   profile: {fileID: 11400000, guid: 77eeca18bb419204eb15a819b035ef88, type: 2}
 --- !u!114 &8320349185397109628
 MonoBehaviour:
@@ -227,3 +226,15 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &9043362646691451710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280148448480573420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 337dfd02f12b21a4792a69a3b08f8204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
