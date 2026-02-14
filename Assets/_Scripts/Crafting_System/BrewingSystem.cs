@@ -24,7 +24,6 @@ public class BrewingSystem : MonoBehaviour
         {
             return;
         }   
-        Debug.Log("Brewing started: " + drinkData.itemName);
         machine.SetState(BrewingState.Brewing);
 
         Coroutine routine = StartCoroutine(BrewRoutine(machine, drinkData));

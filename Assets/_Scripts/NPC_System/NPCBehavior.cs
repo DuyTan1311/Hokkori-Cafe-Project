@@ -46,11 +46,9 @@ public class NPCBehavior : MonoBehaviour
 
             case NPCState.WaitingForOrderAccept:
                 controller.GenerateOrder();
-                Debug.Log("Waiting for order accept");
                 break;
 
             case NPCState.WaitingForDrink:
-                Debug.Log("NPC is waiting for drink");
                 patienceController.StartWaiting();
                 break;
 
@@ -66,7 +64,6 @@ public class NPCBehavior : MonoBehaviour
 
             case NPCState.Leaving:
                 LeaveSeatAndExit();
-                Debug.Log("NPC is leaving...");
                 break;
         }
     }

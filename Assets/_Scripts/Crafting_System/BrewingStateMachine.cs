@@ -13,7 +13,6 @@ public class BrewingStateMachine
             return;
         }
         currentState = state;
-        Debug.Log("State changed to " +  currentState);
         OnStateChanged?.Invoke(currentState);
     }
 }

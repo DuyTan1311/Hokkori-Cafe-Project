@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 5439158630905371188}
   - component: {fileID: 6233977144353436339}
   - component: {fileID: 9043362646691451710}
+  - component: {fileID: 8005037587141655142}
   m_Layer: 0
   m_Name: NPC_test
   m_TagString: Untagged
@@ -238,3 +239,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337dfd02f12b21a4792a69a3b08f8204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCMovement
+--- !u!114 &8005037587141655142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280148448480573420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e231470f08919834e9264aaf84687c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCItemHandler

@@ -67,8 +67,10 @@ public class NPCSpawner : MonoBehaviour
         {
             return;
         }
+
         string key = currentConfig.GetRandomNPCKey();
         var npc = spawnSystem.Spawn<NPCController>(key, spawnPoint.position, spawnPoint.rotation);
+        
         if(npc != null)
         {
             npc.Init(key);

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
+public class NPCController : MonoBehaviour, IPoolable
 {
     [SerializeField] NPCCreatedOrderEvent OnNPCOrderCreated;
     [SerializeField] NPCSpawnEvent OnNPCSpawned;
@@ -54,34 +54,7 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
         }
     }
 
-    public bool CanReceiveItem(ItemData item)
-    {
-        if(stateMachine.currentState != NPCState.WaitingForDrink)
-        {
-            return false;
-        }
-        return item is DrinkData;
-    }
-
-    public void ReceiveItem(ItemData item)
-    {
-        if (!CanReceiveItem(item))
-        {
-            return;
-        }
-
-        DrinkData drink = (DrinkData)item;
-
-        if(orderHandler.CheckOrder(drink))
-        {
-            stateMachine.ChangeState(NPCState.GotCorrectDrink);
-        }
-        else
-        {
-            stateMachine.ChangeState(NPCState.GotWrongDrink);
-        }
-        
-    }
+    
     #endregion
     public void Leave()
     {
@@ -90,20 +63,16 @@ public class NPCController : MonoBehaviour, IItemReceiver, IPoolable
     
     public void OnSpawn()
     {
-        stateMachine.Reset(); // reset state first
+        stateMachine.Reset(); 
 
-        // subscribe to event
         interactable.OnInteracted += AcceptOrder;
         patienceController.OnPatienceExpired += Leave;
-
-        
 
         OnNPCSpawned.Raise(this);
     }
 
     public void OnDespawn()
     {
-        // unsubscribe to event
         interactable.OnInteracted -= AcceptOrder;
         patienceController.OnPatienceExpired -= Leave;
 
