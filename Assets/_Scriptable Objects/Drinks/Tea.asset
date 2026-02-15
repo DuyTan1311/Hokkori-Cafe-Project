@@ -19,6 +19,6 @@ MonoBehaviour:
   canBeStored: 1
   poolKey: drink_tea
   brewTime: 5
-  price: 150
+  price: 15
   isHot: 0
   isSweet: 0

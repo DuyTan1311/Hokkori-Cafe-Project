@@ -6,6 +6,7 @@ public class NPCController : MonoBehaviour, IPoolable
     [SerializeField] NPCCreatedOrderEvent OnNPCOrderCreated;
     [SerializeField] NPCSpawnEvent OnNPCSpawned;
     [SerializeField] NPCLeftEvent OnNPCLeft;
+    
 
     public NPCOrderData currentOrder;
     public NPCStateMachine stateMachine;

@@ -6,7 +6,9 @@ public class NPCBehavior : MonoBehaviour
 {
     private SeatManager seatManager;
     private Transform exitPoint;
+
     [SerializeField] private NPCProfile profile;
+    [SerializeField] private DrinkConsumedEvent OnDrinkConsumed;
 
     private NPCMovement movement;
     private NPCController controller;
@@ -113,6 +115,7 @@ public class NPCBehavior : MonoBehaviour
     IEnumerator DrinkRoutine()
     {
         yield return new WaitForSeconds(profile.drinkDuration);
+        OnDrinkConsumed.Raise(controller.currentOrder.requestedDrink);
         controller.Leave();
     }
 

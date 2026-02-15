@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehavior
   profile: {fileID: 11400000, guid: 77eeca18bb419204eb15a819b035ef88, type: 2}
+  OnDrinkConsumed: {fileID: 11400000, guid: 1fcdbe3107dd0524588e698618fd22c3, type: 2}
 --- !u!114 &8320349185397109628
 MonoBehaviour:
   m_ObjectHideFlags: 0

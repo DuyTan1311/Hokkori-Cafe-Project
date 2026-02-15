@@ -19,6 +19,6 @@ MonoBehaviour:
   canBeStored: 1
   poolKey: drink_coffee
   brewTime: 3
-  price: 100
+  price: 10
   isHot: 0
   isSweet: 0
