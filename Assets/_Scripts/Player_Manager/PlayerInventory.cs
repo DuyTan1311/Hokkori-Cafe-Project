@@ -7,6 +7,8 @@ public class PlayerInventory : MonoBehaviour
 
     public event Action<ItemData> OnHandItemChanged;
 
+    [SerializeField] private InventoryChangedEvent OnInventoryChanged;
+
     private void Awake()
     {
         inventory = new Inventory(new[]
@@ -30,12 +32,16 @@ public class PlayerInventory : MonoBehaviour
         {
             return false;
         }
-
-        ItemData currentHandItem = PeekHand();
-
-        if(currentHandItem != previousHandItem)
+        else
         {
-            NotifyHandChanged(currentHandItem);
+            NotifyInventoryChanged();
+
+            ItemData currentHandItem = PeekHand();
+
+            if (currentHandItem != previousHandItem)
+            {
+                NotifyHandChanged(currentHandItem);
+            }
         }
         return true;
     }
@@ -46,6 +52,7 @@ public class PlayerInventory : MonoBehaviour
         if (success)
         {
             NotifyHandChanged();
+            NotifyInventoryChanged();
         }
         return success;
     }
@@ -56,6 +63,7 @@ public class PlayerInventory : MonoBehaviour
         if(removed != null)
         {
             NotifyHandChanged();
+            NotifyInventoryChanged();
         }
         return removed;
     }
@@ -63,6 +71,11 @@ public class PlayerInventory : MonoBehaviour
     public ItemData PeekHand()
     {
         return inventory.GetItem(InventorySlotType.Hand);
+    }
+
+    public ItemData PeekBag()
+    {
+        return inventory.GetItem(InventorySlotType.Bag);
     }
 
     private void NotifyHandChanged()
@@ -73,5 +86,10 @@ public class PlayerInventory : MonoBehaviour
     private void NotifyHandChanged(ItemData hand)
     {
         OnHandItemChanged?.Invoke(hand);
+    }
+
+    private void NotifyInventoryChanged()
+    {
+        OnInventoryChanged.Raise(PeekHand(), PeekBag());
     }
 }
