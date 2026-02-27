@@ -18,7 +18,7 @@ public class BrewingSystem : MonoBehaviour
         OnBrewingRequested.Raised -= HandleBrewing;
     }
 
-    void HandleBrewing(BrewingMachine machine, DrinkData drinkData)
+    void HandleBrewing(BrewingMachine machine, BrewingRequest request)
     {
         if (brewingRoutines.ContainsKey(machine))
         {
@@ -26,24 +26,24 @@ public class BrewingSystem : MonoBehaviour
         }   
         machine.SetState(BrewingState.Brewing);
 
-        Coroutine routine = StartCoroutine(BrewRoutine(machine, drinkData));
+        Coroutine routine = StartCoroutine(BrewRoutine(machine, request));
         brewingRoutines[machine]= routine;
     }
 
    
-    IEnumerator BrewRoutine(BrewingMachine machine, DrinkData drinkData)
+    IEnumerator BrewRoutine(BrewingMachine machine, BrewingRequest request)
     {
-        float remainingTime = drinkData.brewTime;
+        float remainingTime = request.baseDrink.brewTime;
 
         while (remainingTime > 0)
         {
             remainingTime -= Time.deltaTime;
             yield return null;
         }
-        Debug.Log("Brewing completed: " + drinkData.itemName);
-        OnBrewingCompleted.Raise(machine, drinkData);
+        Debug.Log("Brewing completed: " + request.baseDrink.itemName);
 
-        machine.SetState(BrewingState.Completed);
+        machine.NotifyBrewCompleted(request);
+        OnBrewingCompleted.Raise(machine, request);
         brewingRoutines.Remove(machine);
     }
 }

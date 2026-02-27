@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class BrewingMachine : MonoBehaviour
 {
-    [SerializeField] DrinkData drinkData;
     [SerializeField] BrewingRequestedEvent OnBrewingRequested;
-    [SerializeField] BrewingCompletedEvent OnBrewingCompleted;
     [SerializeField] PlayerInventory inventory;
 
     Interactable interactable;
     BrewingStateMachine stateMachine;
+
+    BrewingRequest pendingResult;
 
     // let brewingSystem change state but keep stateMachine private
     public BrewingState CurrentState => stateMachine.currentState;
@@ -29,15 +29,10 @@ public class BrewingMachine : MonoBehaviour
         interactable.OnInteracted -= HandleInteract;
     }
 
-    void RequestBrew()
-    {
-        OnBrewingRequested.Raise(this, drinkData);
-    }
-
     void CollectBrew()
     {
 
-        if (inventory.ReceiveItem(drinkData))
+        if (inventory.ReceiveItem(pendingResult.baseDrink))
         {
             stateMachine.ChangeState(BrewingState.Idle);
         }
@@ -48,7 +43,7 @@ public class BrewingMachine : MonoBehaviour
     {
         if (stateMachine.currentState == BrewingState.Idle)
         {
-            RequestBrew();
+            OpenBrewingUI();
         }
         else if (stateMachine.currentState == BrewingState.Completed)
         {
@@ -58,6 +53,23 @@ public class BrewingMachine : MonoBehaviour
         {
             // brewing in progress, do nothing
         }
+    }
+
+    public void SubmitRequest(BrewingRequest request)
+    {
+        stateMachine.ChangeState(BrewingState.Brewing);
+        OnBrewingRequested.Raise(this, request);
+    }
+
+    public void NotifyBrewCompleted(BrewingRequest result)
+    {
+        pendingResult = result;
+        stateMachine.ChangeState(BrewingState.Completed);
+    }
+
+    void OpenBrewingUI()
+    {
+        // UI system will call SubmitRequest
     }
 
     public void SetState(BrewingState newState)

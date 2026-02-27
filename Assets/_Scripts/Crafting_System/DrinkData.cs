@@ -5,7 +5,4 @@ public class DrinkData : ItemData
 {
     public float brewTime;
     public int price;
-
-    public bool isHot;
-    public bool isSweet;
 }
