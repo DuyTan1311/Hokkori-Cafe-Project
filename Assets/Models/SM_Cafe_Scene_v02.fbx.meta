@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7f8ac4443f1c379449994ec7a1c87f32
+guid: 12612295930d1f04689efbf4626385cf
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,16 +7,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Mat_Glass_Transparent
-    second: {fileID: 2100000, guid: d06864d57a31f6f45983234bf0fb1189, type: 2}
+      name: Mat_Glass_Transparent.001
+    second: {fileID: 2100000, guid: 549e929818255c1499e0166d34c3ce7d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mat_Global
     second: {fileID: 2100000, guid: f186801c3014e0441937c7d8564c0bb4, type: 2}
   materials:
-    materialImportMode: 1
-    materialName: 1
+    materialImportMode: 2
+    materialName: 0
     materialSearch: 1
     materialLocation: 1
   animations:
@@ -86,7 +86,7 @@ ModelImporter:
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
-    blendShapeNormalImportMode: 0
+    blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
