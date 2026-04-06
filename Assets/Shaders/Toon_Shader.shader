@@ -10,6 +10,23 @@ Shader "Custom/Toon_Shader"
     {
         Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "Queue" = "Geometry" }
 
+        Pass{
+            Name "ShadowCaster"
+            Tags{ "LightMode" = "ShadowCaster"}
+
+            HLSLPROGRAM
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+            #pragma multi_compile _ _SHADOWS_SOFT
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            ENDHLSL
+        }
+
         Pass
         {
             Name "ForwardLit"
@@ -67,23 +84,47 @@ Shader "Custom/Toon_Shader"
                 float3 normal = IN.normalWS;
                 
                 // Lấy main light
-                Light mainLight = GetMainLight();
+                float4 shadowCoord = TransformWorldToShadowCoord(IN.positionWS);
+                Light mainLight = GetMainLight(shadowCoord);
+
                 float mainDot = dot(normal, mainLight.direction);
 
                 float mainIntensity = saturate(mainDot) * mainLight.distanceAttenuation;
 
                 // remap về 0-1 và chia bậc ánh sáng
-                float steps = floor(mainIntensity * _StepCount);
-                steps = min(steps, _StepCount - 1.0);
+                float scaled = mainIntensity * _StepCount;
+
+                float baseSteps = floor(scaled);
+                float nextSteps = min(baseSteps + 1.0, _StepCount - 1.0);
+
+                float t = frac(scaled);
+
+                float w = fwidth(scaled);
+                float smoothT = smoothstep(0.5 - w, 0.5 + w, t);
+
+                float shadow = mainLight.shadowAttenuation;
+                float shadowEffect = (1.0 - shadow) * 1.0;
+
+                baseSteps -= shadowEffect;
+                nextSteps -= shadowEffect;
+
+                baseSteps = clamp(baseSteps, 0.0, _StepCount - 1.0);
+                nextSteps = clamp(nextSteps, 0.0, _StepCount - 1.0);
 
                 // xử lý UV Pallete
-                float2 finalUV;
-                finalUV.y = IN.uv.y;
-                float colWidth = 1.0/ _StepCount;
-                finalUV.x = (steps * colWidth) + (colWidth * 0.5);
+                float colWidth = 1.0 / _StepCount;
 
-                // xử lý màu gốc
-                half3 baseCol = SAMPLE_TEXTURE2D(_PaletteTex, sampler_PaletteTex, finalUV).rgb;
+                float2 uvA = float2(baseSteps * colWidth + colWidth * 0.5, IN.uv.y);
+                float2 uvB = float2(nextSteps * colWidth + colWidth * 0.5, IN.uv.y);
+
+                half3 colA = SAMPLE_TEXTURE2D(_PaletteTex, sampler_PaletteTex, uvA).rgb;
+                half3 colB = SAMPLE_TEXTURE2D(_PaletteTex, sampler_PaletteTex, uvB).rgb;
+
+                half3 baseCol = lerp(colA, colB, smoothT);
+
+                float3 ambient = SampleSH(normalize(normal)) * 0.5;
+
+                baseCol += ambient *(1.0 - mainIntensity);
 
                 // xử lý additional light
                 float3 additionalLightSum = 0;
@@ -106,7 +147,7 @@ Shader "Custom/Toon_Shader"
                 }
                 #endif
 
-                half3 finalCol = baseCol + additionalLightSum;
+                half3 finalCol = baseCol * (1.0 + additionalLightSum);
 
                 return half4(finalCol, 1.0);
                 
