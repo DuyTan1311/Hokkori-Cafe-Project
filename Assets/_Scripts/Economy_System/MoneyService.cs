@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoneyService : MonoBehaviour
+public class MoneyService : MonoBehaviour, ISaveable
 {
     [SerializeField] DrinkConsumedEvent OnDrinkConsumed;
     [SerializeField] MoneyChangedEvent OnMoneyChanged;
@@ -27,5 +27,16 @@ public class MoneyService : MonoBehaviour
         Balance += amount;
         OnMoneyChanged.Raise(Balance);
         Debug.Log("Money: " + Balance);
+    }
+
+
+    public void PopulateSaveData(GameData data)
+    {
+        data.money = Balance;
+    }
+
+    public void LoadFromSaveData(GameData data)
+    {
+        Balance = data.money;
     }
 }
