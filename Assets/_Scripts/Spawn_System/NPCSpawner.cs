@@ -1,3 +1,4 @@
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 /* This script is used to control when, where and how NPC spawn */
@@ -9,19 +10,22 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] private int maxActiveNPC = 10;
     [SerializeField] private NPCSpawnEvent onNPCSpawned;
     [SerializeField] private NPCLeftEvent onNPCLeft;
-
+    [SerializeField] private DayCycleManager dayCycleManager;
 
     private float nextSpawnTime;
     private int currentActiveNPC;
+    private bool canSpawn = false;
 
     private void OnEnable()
     {
         onNPCLeft.Raised += HandleNPCLeft;
+        dayCycleManager.OnPhaseChanged += HandlePhaseChanged;
     }
 
     private void OnDisable()
     {
         onNPCLeft.Raised -= HandleNPCLeft;
+        dayCycleManager.OnPhaseChanged -= HandlePhaseChanged;
     }
 
     private void Start()
@@ -32,6 +36,10 @@ public class NPCSpawner : MonoBehaviour
 
     private void Update()
     {
+        if (!canSpawn)
+        {
+            return;
+        }
         if (Time.time >= nextSpawnTime) 
         {
             if(currentActiveNPC < maxActiveNPC)
@@ -76,8 +84,8 @@ public class NPCSpawner : MonoBehaviour
 
             var behavior = npc.GetComponent<NPCBehavior>();
             npc.StartBehavior();
-
             currentActiveNPC++;
+            dayCycleManager.RegisterNPCSpawn();
         }
     }
 
@@ -101,5 +109,15 @@ public class NPCSpawner : MonoBehaviour
         }
         DespawnNPC(npc.Poolkey, npc);
         currentActiveNPC = Mathf.Max(0,currentActiveNPC - 1);
+    }
+
+    private void HandlePhaseChanged(DayPhase phase)
+    {
+        canSpawn = phase == DayPhase.Opening;
+
+        if(phase == DayPhase.Preparation)
+        {
+            currentActiveNPC = 0;
+        }
     }
 }
