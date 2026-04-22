@@ -17,6 +17,7 @@ public class Interactable : MonoBehaviour
         if (IsInteractable())
         {
             OnInteracted?.Invoke();
+            Debug.Log("Interacted with " + gameObject.name);
         }
     }
 }

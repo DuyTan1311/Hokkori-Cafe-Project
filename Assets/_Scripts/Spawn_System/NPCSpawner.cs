@@ -118,6 +118,7 @@ public class NPCSpawner : MonoBehaviour
         if(phase == DayPhase.Preparation)
         {
             currentActiveNPC = 0;
+            CalculateNextSpawnTime();
         }
     }
 }
