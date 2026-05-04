@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5860606121182525847
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LensDistortion
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.29
+  xMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  yMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  scale:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!114 &-5427359389684713054
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -152,6 +180,22 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-835360954968206923
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ChromaticAberration
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.128
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +215,10 @@ MonoBehaviour:
   - {fileID: -3442331450643357015}
   - {fileID: 7514455230986770172}
   - {fileID: -5427359389684713054}
+  - {fileID: -835360954968206923}
+  - {fileID: -5860606121182525847}
+  - {fileID: 3575515952622036527}
+  - {fileID: 837324916494980982}
 --- !u!114 &826084898676775809
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -199,6 +247,92 @@ MonoBehaviour:
   saturation:
     m_OverrideState: 1
     m_Value: 8
+--- !u!114 &837324916494980982
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb60a22f311433c4c962b888d1393f88, type: 3}
+  m_Name: PaniniProjection
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.PaniniProjection
+  active: 1
+  distance:
+    m_OverrideState: 1
+    m_Value: 0.073
+  cropToFit:
+    m_OverrideState: 0
+    m_Value: 1
+--- !u!114 &3575515952622036527
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06437c1ff663d574d9447842ba0a72e4, type: 3}
+  m_Name: ScreenSpaceLensFlare
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ScreenSpaceLensFlare
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1.7
+  tintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0.7180128, b: 0.3820755, a: 1}
+  bloomMip:
+    m_OverrideState: 0
+    m_Value: 1
+  firstFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  secondaryFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 1.11
+  warpedFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  warpedFlareScale:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1}
+  samples:
+    m_OverrideState: 1
+    m_Value: 2
+  sampleDimmer:
+    m_OverrideState: 0
+    m_Value: 0.5
+  vignetteEffect:
+    m_OverrideState: 1
+    m_Value: 0.378
+  startingPosition:
+    m_OverrideState: 1
+    m_Value: 2.26
+  scale:
+    m_OverrideState: 1
+    m_Value: 1.74
+  streaksIntensity:
+    m_OverrideState: 1
+    m_Value: 7.64
+  streaksLength:
+    m_OverrideState: 1
+    m_Value: 0.481
+  streaksOrientation:
+    m_OverrideState: 1
+    m_Value: 7.4
+  streaksThreshold:
+    m_OverrideState: 1
+    m_Value: 0.256
+  resolution:
+    m_OverrideState: 0
+    m_Value: 4
+  chromaticAbberationIntensity:
+    m_OverrideState: 1
+    m_Value: 0.622
 --- !u!114 &7514455230986770172
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -214,7 +348,7 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   intensity:
     m_OverrideState: 1
     m_Value: 0.4
